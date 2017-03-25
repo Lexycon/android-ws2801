@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.flask.colorpicker.ColorPickerView
+        android:id="@+id/color_picker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alphaSlider="false"
+        app:density="12"
+        app:lightnessSlider="false"
+        app:wheelType="CIRCLE"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/textview_title_brightness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvBrightness"
+        android:layout_below="@+id/color_picker_view"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sbBrightness"
+        android:layout_below="@+id/tvBrightness"
+        android:progress="50"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

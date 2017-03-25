@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">LED Control</string>
+    <string name="textview_title_brightness">Brightness</string>
+    <string name="button_title_on_off">LED switch on / off</string>
+    <string name="tab_title_first">Single Color</string>
+    <string name="tab_title_second">Effects</string>
+    <string name="button_mode_1">Color fading</string>
+    <string name="button_mode_2">Rainbow 1</string>
+    <string name="button_mode_3">Rainbow 2</string>
+    <string name="button_mode_4">Red Green Blue</string>
+    <string name="button_mode_5">Red constructive</string>
+
+    <string name="menu_title_settings">Settings</string>
+
+    <string name="pref_group_main">Main</string>
+    <string name="pref_key_group_main" translatable="false">key_group_main</string>
+
+    <string name="default_ipaddress" translatable="false">192.168.178.10</string>
+    <string name="default_port" translatable="false">20000</string>
+    <string name="default_theme" translatable="false">LIGHT</string>
+    <string name="default_wheelstyle" translatable="false">CIRCLE</string>
+
+    <string name="pref_key_ipaddress" translatable="false">key_ipaddress</string>
+    <string name="pref_key_port" translatable="false">key_port</string>
+    <string name="pref_key_theme" translatable="false">key_theme</string>
+    <string name="pref_key_wheelstyle" translatable="false">key_wheelstyle</string>
+
+
+    <string name="pref_title_ipaddress">IP Address</string>
+    <string name="pref_title_port">Port</string>
+    <string name="pref_title_theme">Theme</string>
+    <string name="pref_title_wheelstyle">Colorpicker style</string>
+
+
+    <string-array name="pref_values_text_wheelstyle">
+        <item>Circle</item>
+        <item>Flower</item>
+    </string-array>
+    <string-array name="pref_values_wheelstyle" translatable="false">
+        <item>CIRCLE</item>
+        <item>FLOWER</item>
+    </string-array>
+
+    <string-array name="pref_values_text_theme">
+        <item>Light</item>
+        <item>Dark</item>
+
+    </string-array>
+    <string-array name="pref_values_theme" translatable="false">
+        <item>LIGHT</item>
+        <item>DARK</item>
+    </string-array>
+
+</resources>

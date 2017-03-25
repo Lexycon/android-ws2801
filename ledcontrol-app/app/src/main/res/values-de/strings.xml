@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LED Steuerung</string>
+    <string name="pref_title_ipaddress">IP-Adresse</string>
+    <string name="pref_title_port">Port</string>
+    <string name="pref_title_theme">Theme</string>
+    <string name="pref_title_wheelstyle">Farbauswahl-Design</string>
+    <string name="tab_title_first">Einfarbig</string>
+    <string name="tab_title_second">Effekte</string>
+    <string name="textview_title_brightness">Helligkeit</string>
+    <string name="button_title_on_off">LED ein- / ausschalten</string>
+    <string name="menu_title_settings">Einstellungen</string>
+    <string name="pref_group_main">Allgemein</string>
+    <string name="button_mode_1">Farbwechsel</string>
+    <string name="button_mode_2">Regenbogen 1</string>
+    <string name="button_mode_3">Regenbogen 2</string>
+    <string name="button_mode_4">Rot Grün Blau</string>
+    <string name="button_mode_5">Rot auffüllen</string>
+
+    <string-array name="pref_values_text_wheelstyle">
+        <item>Kreis</item>
+        <item>Blume</item>
+    </string-array>
+
+    <string-array name="pref_values_text_theme">
+        <item>Hell</item>
+        <item>Dunkel</item>
+    </string-array>
+</resources>

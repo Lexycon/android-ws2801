@@ -1,0 +1,41 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_group_main"
+        android:key="@string/pref_key_group_main">
+
+        <EditTextPreference
+            android:defaultValue="@string/default_ipaddress"
+            android:inputType="text"
+            android:key="@string/pref_key_ipaddress"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_title_ipaddress" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_port"
+            android:inputType="number"
+            android:key="@string/pref_key_port"
+            android:maxLines="1"
+            android:maxLength="10"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_title_port" />
+
+        <ListPreference
+            android:key="@string/pref_key_theme"
+            android:title="@string/pref_title_theme"
+            android:entries="@array/pref_values_text_theme"
+            android:entryValues="@array/pref_values_theme"
+            android:defaultValue="@string/default_theme"/>
+
+        <ListPreference
+            android:key="@string/pref_key_wheelstyle"
+            android:title="@string/pref_title_wheelstyle"
+            android:entries="@array/pref_values_text_wheelstyle"
+            android:entryValues="@array/pref_values_wheelstyle"
+            android:defaultValue="@string/default_wheelstyle"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
