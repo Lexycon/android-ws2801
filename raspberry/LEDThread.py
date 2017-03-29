@@ -53,24 +53,28 @@ class LEDThread(threading.Thread):
         else:
             return Adafruit_WS2801.RGB_to_color(0, 0, 255)
 
+    def rainbow_colors(self, wait=0.05):
+        for j in range(256):
+            for i in range(self.pixels.count()):
+                if self.mode != 2: return
+                self.pixels.set_pixel(i, self.wheel(((256 // self.pixels.count() + j)) % 256) )
+            self.pixels.show()
+            if wait > 0:
+                time.sleep(wait)
+
     def rainbow_cycle(self, wait=0.005):
-        for j in range(256): # one cycle of all 256 colors in the wheel
+        for j in range(256):
             for i in range(self.pixels.count()):
                 if self.mode != 3: return
                 self.pixels.set_pixel(i, self.wheel(((i * 256 // self.pixels.count()) + j) % 256) )
             self.pixels.show()
             if wait > 0:
                 time.sleep(wait)
-     
-    # Define rainbow cycle function to do a cycle of all hues.
+
     def rainbow_cycle_successive(self, wait=0.05):
         self.pixels.clear()
         for i in range(self.pixels.count()):
             if self.mode != 4: return
-            # tricky math! we use each pixel as a fraction of the full 96-color wheel
-            # (thats the i / strip.numPixels() part)
-            # Then add in j which makes the colors go around per pixel
-            # the % 96 is to make the wheel cycle around
             self.pixels.set_pixel(i, self.wheel(((i * 256 // self.pixels.count())) % 256) )
             self.pixels.show()
             if wait > 0:
@@ -82,29 +86,16 @@ class LEDThread(threading.Thread):
             if wait > 0:
                 time.sleep(wait)
 
-    def rainbow_cycle_moving(self, wait=0.05):
+    def rgb_cycle_moving(self, wait=0.05):
         self.pixels.clear() 
         for j in range(self.pixels.count()):
             for i in range(self.pixels.count()):
                 if self.mode != 5: return
-                # tricky math! we use each pixel as a fraction of the full 96-color wheel
-                # (thats the i / strip.numPixels() part)
-                # Then add in j which makes the colors go around per pixel
-                # the % 96 is to make the wheel cycle around
-                self.pixels.set_pixel((j+i)%self.PIXEL_COUNT, self.wheel_rgb( (j+i)%self.PIXEL_COUNT ))
+                self.pixels.set_pixel((j+i)%self.PIXEL_COUNT, self.wheel_rgb( (i * 256 // self.pixels.count() % 256) ))
             self.pixels.show()
             if wait > 0:
                 time.sleep(wait)
-
-    def rainbow_colors(self, wait=0.05):
-        for j in range(256): # one cycle of all 256 colors in the wheel
-            for i in range(self.pixels.count()):
-                if self.mode != 2: return
-                self.pixels.set_pixel(i, self.wheel(((256 // self.pixels.count() + j)) % 256) )
-            self.pixels.show()
-            if wait > 0:
-                time.sleep(wait)
-     
+  
     def appear_from_back(self, color=(255, 0, 0)):
         for i in range(self.pixels.count()):
             for j in reversed(range(i, self.pixels.count())):
@@ -154,7 +145,7 @@ class LEDThread(threading.Thread):
             GPIO.output(self.RELAIS_1_GPIO, GPIO.LOW) # an
             time.sleep(3) #sleep 3s
             if self.mode == 0:
-                self.singleColor(self.pixels)
+                self.singleColor()
         self.relais = not self.relais
 
     def run(self):
@@ -164,7 +155,7 @@ class LEDThread(threading.Thread):
                 if self.mode == 2: self.rainbow_colors()
                 if self.mode == 3: self.rainbow_cycle()
                 if self.mode == 4: self.rainbow_cycle_successive()
-                if self.mode == 5: self.rainbow_cycle_moving()
+                if self.mode == 5: self.rgb_cycle_moving()
                 if self.mode == 6: self.appear_from_back()
             time.sleep(0.01)
 

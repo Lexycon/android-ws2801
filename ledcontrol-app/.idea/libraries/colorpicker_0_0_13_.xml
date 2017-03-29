@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="colorpicker_0.0.13-">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/385366df315fcda848a2ccfda6f71da8f8ec3aec/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/385366df315fcda848a2ccfda6f71da8f8ec3aec/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/f18fbac9d20c3bbf7c89aaa66a953b65c0b0bcee/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/f18fbac9d20c3bbf7c89aaa66a953b65c0b0bcee/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
