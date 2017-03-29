@@ -16,9 +16,11 @@ The application uses the color picker v0.0.13 by QuadFlask (https://github.com/Q
 python LEDServer.py
 ```
 
-=======
 ## Preview:
-[[preview_en.png|alt=preview]]
+<p align="center">
+  <img src="preview_en.png" width="350"/>
+  <img src="preview_de.png" width="350"/>
+</p>
 
 Resources:
 * [Android Studio](https://developer.android.com/studio/index.html)
