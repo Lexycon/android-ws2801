@@ -14,11 +14,13 @@ class LEDThread(threading.Thread):
         threading.Thread.__init__(self)
 
         # Configure the count of pixels:
-        self.PIXEL_COUNT = 160
+        self.PIXEL_COUNT = 28
+        self.PIXEL_SIZE = 3
          
         # Alternatively specify a hardware SPI connection on /dev/spidev0.0:
         self.SPI_PORT   = 0
         self.SPI_DEVICE = 0
+        
         self.pixels = Adafruit_WS2801.WS2801Pixels(self.PIXEL_COUNT, spi=SPI.SpiDev(self.SPI_PORT, self.SPI_DEVICE), gpio=GPIO)
 
         # Default values for starting color
@@ -27,13 +29,17 @@ class LEDThread(threading.Thread):
         self.sBlue = "ff"
         self.iBrightness = 50
         self.mode = 0
-        self.relais = 0
+        self.relais = 1
+        self.data = bytearray()
+        self.gamma = bytearray(256)
+        
 
         # Define Relais
         self.RELAIS_1_GPIO = 17
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.RELAIS_1_GPIO, GPIO.OUT)
         GPIO.output(self.RELAIS_1_GPIO, GPIO.HIGH)
+
 
     def wheel(self, pos):
         if pos < 85:
@@ -120,6 +126,20 @@ class LEDThread(threading.Thread):
             self.pixels.set_pixel(k, Adafruit_WS2801.RGB_to_color( sNewRed, sNewGreen, sNewBlue ))
         self.pixels.show()
 
+    def show_stream(self):
+        self.mode = 0
+        self.pixels.clear()
+	
+        pixels_in_buffer = len(self.data) / self.PIXEL_SIZE
+
+        for pixel_index in range(pixels_in_buffer):
+            pixel = bytearray(self.data[(pixel_index * self.PIXEL_SIZE):((pixel_index * self.PIXEL_SIZE) + self.PIXEL_SIZE)])
+            self.pixels.set_pixel(pixel_index, Adafruit_WS2801.RGB_to_color( pixel[0], pixel[1], pixel[2] ))
+        self.pixels.show()
+
+    def setData(self,data):
+        self.data = data
+
     def setColor(self, r, g, b):
         self.sRed = r
         self.sGreen = g
@@ -157,6 +177,7 @@ class LEDThread(threading.Thread):
                 if self.mode == 4: self.rainbow_cycle_successive()
                 if self.mode == 5: self.rgb_cycle_moving()
                 if self.mode == 6: self.appear_from_back()
+                if self.mode == 7: self.show_stream()
             time.sleep(0.01)
 
 	print >>sys.stderr, "Shutdown thread..."

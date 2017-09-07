@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import socket
 import sys 
 
@@ -17,15 +18,19 @@ sock.bind((UDP_IP, UDP_PORT))
 
 try:
     while True:
-        print >>sys.stderr, 'waiting to receive message'
+        #print >>sys.stderr, 'waiting to receive message'
         data, address = sock.recvfrom(1024)
 
         print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
-        print >>sys.stderr, data
+        #print >>sys.stderr, data
 	
         if data:
 
-            if data[:1] == 'A': # send current values
+            if len(data)>7:
+                ledThread.setData(data)
+                ledThread.setMode(7)
+
+            elif data[:1] == 'A': # send current values
                 sColor = ledThread.getColor()
                 iBrightness = ledThread.getBrightness()
                 sent = sock.sendto('A' + str(iBrightness) + "," + sColor, address)
