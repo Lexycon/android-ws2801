@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import socket
 import sys 
+import threading
+import SocketServer
+from BaseHTTPServer import BaseHTTPRequestHandler
+import SimpleHTTPServer
 
 # Set up LED Thread
 from LEDThread import LEDThread
@@ -10,23 +14,26 @@ ledThread.start()
 
 # Set up UDP Server to receive commands from app
 UDP_IP = ""
-UDP_PORT = 20000
+UDP_PORT = 6454
+
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
-
 
 try:
     while True:
         #print >>sys.stderr, 'waiting to receive message'
         data, address = sock.recvfrom(1024)
 
-        print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
+        #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
         #print >>sys.stderr, data
 	
         if data:
-
-            if len(data)>7:
+            if((len(data) > 18) and (data[0:8] == "Art-Net\x00")):
+                ledThread.setData(data)
+                ledThread.setMode(8)
+            
+            elif len(data)>7:
                 ledThread.setData(data)
                 ledThread.setMode(7)
 

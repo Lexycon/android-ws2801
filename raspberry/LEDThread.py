@@ -126,7 +126,7 @@ class LEDThread(threading.Thread):
             self.pixels.set_pixel(k, Adafruit_WS2801.RGB_to_color( sNewRed, sNewGreen, sNewBlue ))
         self.pixels.show()
 
-    def show_stream(self):
+    def show_pixelcontroller_stream(self):
         self.mode = 0
         self.pixels.clear()
 	
@@ -134,6 +134,20 @@ class LEDThread(threading.Thread):
 
         for pixel_index in range(pixels_in_buffer):
             pixel = bytearray(self.data[(pixel_index * self.PIXEL_SIZE):((pixel_index * self.PIXEL_SIZE) + self.PIXEL_SIZE)])
+            self.pixels.set_pixel(pixel_index, Adafruit_WS2801.RGB_to_color( pixel[0], pixel[1], pixel[2] ))
+        self.pixels.show()
+        
+    def show_artnet_stream(self):
+
+        self.mode = 0
+        self.pixels.clear()
+        color_values = self.data[18:]
+        #print color_values.encode("hex")
+        pixels_in_buffer = len(color_values) / self.PIXEL_SIZE
+        if pixels_in_buffer > self.PIXEL_COUNT:
+            pixels_in_buffer = self.PIXEL_COUNT
+        for pixel_index in range(pixels_in_buffer):
+            pixel = bytearray(color_values[(pixel_index * self.PIXEL_SIZE):((pixel_index * self.PIXEL_SIZE) + self.PIXEL_SIZE)])
             self.pixels.set_pixel(pixel_index, Adafruit_WS2801.RGB_to_color( pixel[0], pixel[1], pixel[2] ))
         self.pixels.show()
 
@@ -177,7 +191,9 @@ class LEDThread(threading.Thread):
                 if self.mode == 4: self.rainbow_cycle_successive()
                 if self.mode == 5: self.rgb_cycle_moving()
                 if self.mode == 6: self.appear_from_back()
-                if self.mode == 7: self.show_stream()
+                if self.mode == 7: self.show_pixelcontroller_stream()
+                if self.mode == 8: self.show_artnet_stream()
+
             time.sleep(0.01)
 
 	print >>sys.stderr, "Shutdown thread..."
